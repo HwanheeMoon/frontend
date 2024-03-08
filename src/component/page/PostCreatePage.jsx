@@ -5,6 +5,8 @@ import { styled } from "styled-components";
 import Header from "../section/Header";
 import CategoryContainer from "../container/CategoryContainer";
 
+import TitleInput from "../input/TitleInput";
+
 const PostCreatePage = () => {
 
 
@@ -16,6 +18,7 @@ const PostCreatePage = () => {
                 글 작성
             </h2>
             <CategoryContainer />
+            <TitleInput />
         </div>
         
     );

@@ -6,6 +6,7 @@ import Header from "../section/Header";
 import CreatePostButton from "../button/CreatePostButton";
 import TagList from "../list/TagList";
 import CategoryList from "../list/CategoryList";
+import ListContainer from "../container/ListContainer";
 
 const FootButtonContainer = styled.div`
     position: fixed;
@@ -39,6 +40,7 @@ const MainPage = () => {
             <Header />
             <TagList onTagSelect={handleTagSelect} />
             <CategoryList onSelect={handleCategorySelect} />
+            <ListContainer />
             <FootButtonContainer>
                 <CreatePostButton/>
             </FootButtonContainer>
