@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
@@ -30,7 +30,7 @@ const MainPage = () => {
 
     // 카테고리 select section 부분
     const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
+        setSelectedCategory(category);
     };
 
 
@@ -42,7 +42,7 @@ const MainPage = () => {
             <CategoryList onSelect={handleCategorySelect} />
             <ListContainer />
             <FootButtonContainer>
-                <CreatePostButton/>
+                <CreatePostButton />
             </FootButtonContainer>
         </div>
     );
