@@ -33,14 +33,12 @@ const MainPage = () => {
         setSelectedCategory(category);
     };
 
-
-
     return (
         <div>
             <Header />
             <TagList onTagSelect={handleTagSelect} />
             <CategoryList onSelect={handleCategorySelect} />
-            <ListContainer />
+            <ListContainer category="selectedCategory"/>
             <FootButtonContainer>
                 <CreatePostButton />
             </FootButtonContainer>

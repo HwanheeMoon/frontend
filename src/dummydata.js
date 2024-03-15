@@ -1,4 +1,4 @@
-[
+const dummydata = [
     {
         id: 1,
         title: "첫 번째 글",
@@ -110,3 +110,12 @@
         date: "2024-01-10",
     }
 ];
+
+export function fetchDataById(id) {
+    const data = dummydata.find(item => item.id === id);
+    return data;
+}
+
+export function fetchData() {
+    return dummydata;
+}

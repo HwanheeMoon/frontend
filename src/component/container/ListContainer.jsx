@@ -1,92 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from "styled-components";
+import { fetchData } from '../../dummydata';
 
 const columns = ['제목', '카테고리', '태그', '작성자', '댓글', '좋아요', '날짜'];
 const itemsPerPage = 5;
 
-function ListContainer() {
+function ListContainer(props) {
 
     const [reviews, setReviews] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [currentCategory, setCurrentCategory] = useState(1)
 
     useEffect(() => {
-        const sampleData = [
-            {
-                title: "Title 1",
-                category: "A",
-                tags: "Tag1",
-                writer: "Writer 1",
-                comments: 3,
-                likes: 5,
-                date: "Date 1"
-            },
-            {
-                title: "Title 2",
-                category: "B",
-                tags: "Tag2",
-                writer: "Writer 2",
-                comments: 3,
-                likes: 5,
-                date: "Date 2"
-            },
-            {
-                title: "Title 2",
-                category: "B",
-                tags: "Tag2",
-                writer: "Writer 2",
-                comments: 3,
-                likes: 5,
-                date: "Date 2"
-            },
-            {
-                title: "Title 2",
-                category: "B",
-                tags: "Tag2",
-                writer: "Writer 2",
-                comments: 3,
-                likes: 5,
-                date: "Date 2"
-            },
-            {
-                title: "Title 2",
-                category: "B",
-                tags: "Tag2",
-                writer: "Writer 2",
-                comments: 3,
-                likes: 5,
-                date: "Date 2"
-            },
-            {
-                title: "Title 2",
-                category: "B",
-                tags: "Tag2",
-                writer: "Writer 2",
-                comments: 3,
-                likes: 5,
-                date: "Date 2"
-            },
-            {
-                title: "Title 2",
-                category: "B",
-                tags: "Tag2",
-                writer: "Writer 2",
-                comments: 3,
-                likes: 5,
-                date: "Date 2"
-            },
-            {
-                title: "Title 2",
-                category: "B",
-                tags: "Tag2",
-                writer: "Writer 2",
-                comments: 3,
-                likes: 5,
-                date: "Date 2"
-            },
-
-        ];
+        const sampleData = fetchData();
+        
         setReviews(sampleData);
-    }, []);
+    }, [props.category]);
 
     const lastIndex = currentPage * itemsPerPage;
     const firstIndex = lastIndex - itemsPerPage;
@@ -117,6 +47,12 @@ function ListContainer() {
         }
     `;
 
+    const navigate = useNavigate();
+
+    const handleCellClick = (id) => {
+        navigate(`/board?id=${id}`);
+    };
+
     return (
         <div>
             <StyledContainer>
@@ -130,7 +66,7 @@ function ListContainer() {
                     </thead>
                     <tbody>
                         {currentItems.map((item, index) => (
-                            <tr key={index}>
+                            <tr key={index} onClick={() => handleCellClick(item.id)}>
                                 <td style={{ padding: '8px' }}>{item.title}</td>
                                 <td style={{ padding: '8px' }}>{item.category}</td>
                                 <td style={{ padding: '8px' }}>{item.tags}</td>
