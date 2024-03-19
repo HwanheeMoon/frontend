@@ -14,26 +14,29 @@ const JoinPage = () => {
     return(
         <div>
             <Header />
-            <div style={{textAlign: 'center', marginTop: '30px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '150px'}}>
                 
-                <h1 style={{color: 'gray', fontWeight: 'normal', marginBottom: '20px'}}>간편회원가입</h1>
+                <h1 style={{color: 'gray', fontWeight: 'normal', marginBottom: '50px'}}>간편회원가입</h1>
 
-                <KakaoButton
-                    imageSrc={require("../../images/kakao_signup.png")} 
-                    alt="카카오버튼 이미지" 
-                    width="280px"
-                    height= "62px"
-                    onClick={() => console.log('버튼 클릭됨')}// 버튼이 클릭될 때 실행될 함수를 지정
-    
-                />
+                <div style={{ display: 'flex', justifyContent: 'center', width: '280px', alignItems: 'center'}}>
+                    <KakaoButton
+                        imageSrc={require("../../images/kakao_signup.png")} 
+                        alt="카카오버튼 이미지" 
+                        width="280px"
+                        height= "62px"
+                        onClick={() => console.log('버튼 클릭됨')}// 버튼이 클릭될 때 실행될 함수를 지정
+                    />
 
-                <GoogleButton
-                    imageSrc={require("../../images/google_signup_2.png")}
-                    alt="구글버튼 이미지" 
-                    width="280px"
-                    height= "62px"
-                    onClick={() => console.log('버튼 클릭됨')}
-                />
+                    <div style={{ marginRight: '30px' }}></div> 
+                    
+                    <GoogleButton
+                        imageSrc={require("../../images/google_signup.png")}
+                        alt="구글버튼 이미지" 
+                        width="280px"
+                        height= "62px"
+                        onClick={() => console.log('버튼 클릭됨')}
+                    />
+                </div>
             </div>
         </div>
     );

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { fetchDataById } from '../../dummydata';
+import { styled } from "styled-components";
 
 import Header from "../section/Header";
+import PostHeader from "../section/PostHeader";
+
 
 const BoardViewPage = () => {
     const location = useLocation();
@@ -21,11 +24,12 @@ const BoardViewPage = () => {
             <Header />
             {postData && (
                 <div>
-                    <h1>{postData.category} | {postData.title}</h1><br/>
-                    <div>
-                        <span>comments : {postData.comments} | </span>
-                        <span>likes : {postData.likes}</span>
-                    </div>
+                    <PostHeader
+                        category={postData.category}
+                        title={postData.title}
+                        comments={postData.comments}
+                        likes={postData.likes}
+                    />
                     <h2>{postData.author} | {postData.date}</h2>
                     <h3>
                         {postData.tags.map((tag, index) => (
@@ -33,6 +37,7 @@ const BoardViewPage = () => {
                         ))}
                     </h3>
                     <h4>{postData.content}</h4>
+                    
                 </div>
             )}
             <hr/>

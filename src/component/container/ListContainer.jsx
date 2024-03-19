@@ -35,6 +35,17 @@ function ListContainer(props) {
     justify-content: center;
     `;
 
+    const StyledTable = styled.table`
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid #dddddd;
+
+    tbody tr:hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
+    }
+`;
+
     const PageButton = styled.button`
         margin: 0 5px;
         padding: 5px 10px;
@@ -56,7 +67,7 @@ function ListContainer(props) {
     return (
         <div>
             <StyledContainer>
-                <table style={{ width: '100%', borderCollapse: 'collapse', borderBottom: '1px solid #dddddd' }}>
+                <StyledTable>
                     <thead>
                         <tr>
                             {columns.map((column, index) => (
@@ -77,7 +88,7 @@ function ListContainer(props) {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </StyledTable>
             </StyledContainer>
             <StyledPageNumbers>
                 {Array.from({ length: Math.ceil(reviews.length / itemsPerPage) }, (_, index) => (
