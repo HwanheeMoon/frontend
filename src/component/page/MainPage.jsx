@@ -34,11 +34,11 @@ const MainPage = () => {
     };
 
     return (
-        <div>
+        <div style = {{padding: '10px'}}>
             <Header />
             <TagList onTagSelect={handleTagSelect} />
             <CategoryList onSelect={handleCategorySelect} />
-            <ListContainer category="selectedCategory"/>
+            <ListContainer category={selectedCategory}/>
             <FootButtonContainer>
                 <CreatePostButton />
             </FootButtonContainer>

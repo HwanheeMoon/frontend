@@ -1,31 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { styled } from "styled-components";
-import { fetchData } from '../../dummydata';
+import axios from "axios";
+import BoardViewPage from "../page/BoardViewPage";
 
-const columns = ['제목', '카테고리', '태그', '작성자', '댓글', '좋아요', '날짜'];
-const itemsPerPage = 5;
+const columns = ['제목', '카테고리', '태그', '작성자', '좋아요', '날짜'];
+const itemsPerPage = 10;
 
 function ListContainer(props) {
 
     const [reviews, setReviews] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [currentCategory, setCurrentCategory] = useState(1)
+    const navigate = useNavigate();
+    const getList = async () => {
+        const response = await axios.get("http://localhost:8080/board/list");
+        setReviews(response.data);
+        console.log(response.data);
+    };
 
-    useEffect(() => {
-        const sampleData = fetchData();
-        
-        setReviews(sampleData);
-    }, [props.category]);
+    useEffect(() => {getList()},[]);
 
     const lastIndex = currentPage * itemsPerPage;
     const firstIndex = lastIndex - itemsPerPage;
     const currentItems = reviews.slice(firstIndex, lastIndex);
 
     const StyledContainer = styled.div`
-    display: flex;
-    align-items: center;
-    margin: 20px 50px;
+        display: flex;
+        align-items: center;
+        margin: 20px 90px;
     `;
 
     const StyledPageNumbers = styled.div`
@@ -43,8 +46,13 @@ function ListContainer(props) {
     tbody tr:hover {
         background-color: #f5f5f5;
         cursor: pointer;
+        
     }
 `;
+
+    const handleCellClick = (id) => {
+        navigate(`/board/${id}`);
+    };
 
     const PageButton = styled.button`
         margin: 0 5px;
@@ -58,11 +66,6 @@ function ListContainer(props) {
         }
     `;
 
-    const navigate = useNavigate();
-
-    const handleCellClick = (id) => {
-        navigate(`/board?id=${id}`);
-    };
 
     return (
         <div>
@@ -76,16 +79,15 @@ function ListContainer(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentItems.map((item, index) => (
-                            <tr key={index} onClick={() => handleCellClick(item.id)}>
-                                <td style={{ padding: '8px' }}>{item.title}</td>
-                                <td style={{ padding: '8px' }}>{item.category}</td>
-                                <td style={{ padding: '8px' }}>{item.tags}</td>
-                                <td style={{ padding: '8px' }}>{item.writer}</td>
-                                <td style={{ padding: '8px' }}>{item.comments}</td>
-                                <td style={{ padding: '8px' }}>{item.likes}</td>
-                                <td style={{ padding: '8px' }}>{item.date}</td>
-                            </tr>
+                        {currentItems.map((board) => (
+                        <tr key = {board} onClick={() => handleCellClick(board.id)}>
+                                <td style={{ padding: '8px 70px'}}>{board.title}</td>
+                                <td style={{ padding: '8px 70px'}}>{board.category}</td>
+                                <td style={{ padding: '8px 70px' }}>{board.tag}</td>
+                                <td style={{ padding: '8px 70px' }}>{board.member.name}</td>
+                                <td style={{ padding: '8px 70px' }}>{board.bookmark_cnt}</td>
+                                <td style={{ padding: '8px 70px' }}>{board.write_date}</td>
+                        </tr>
                         ))}
                     </tbody>
                 </StyledTable>

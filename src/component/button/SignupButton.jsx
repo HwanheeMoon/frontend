@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
+import axios from "axios";
 
 const StyledButton = styled.button`
     background-color: white;
@@ -14,10 +15,11 @@ const StyledButton = styled.button`
 `;
 
 const SignupButton = () => {
+
     return (
         <Link to="/join\">
             <StyledButton>
-                SignUp
+                Login
             </StyledButton>
         </Link>
     )

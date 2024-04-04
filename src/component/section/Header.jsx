@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import LoginButton from '../button/LoginButton';
 import SignupButton from '../button/SignupButton';
+import {useEffect} from "react";
+import LogoutButton from "../button/LogoutButton";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -33,15 +35,24 @@ const ButtonContainer = styled.div`
 
 
 const Header = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    useEffect( () => {
+        const token = localStorage.getItem("token");
+        if(token) {
+            setIsLoggedIn(true);
+        }
+    }, [])
+
     return (
       <HeaderContainer>
         <LogoLink to='/'>
             <Logo>Code Review</Logo>
         </LogoLink>
           <ButtonContainer>
-             
-              <SignupButton />
-              <LoginButton />
+
+              {!isLoggedIn && <SignupButton/>}
+              {isLoggedIn && <LogoutButton/>}
+
           </ButtonContainer>
       </HeaderContainer>
     );
