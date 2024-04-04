@@ -14,7 +14,7 @@ const TagListContainer = styled.div`
 
 const TagList = ({onTagSelect}) => {
     
-    const tags = ['#태그1', '#태그2', '#태그3', '#태그4', '#태그5'];
+    const tags = ['다이나믹 프로그래밍', '자료구조', '그래프 이론', '수학', '구현', '문자열', '그리디', '트리', '해시', '정렬'];
 
     const handleTagClick = (selectedTag) => {
         onTagSelect(selectedTag);

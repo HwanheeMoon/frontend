@@ -7,7 +7,7 @@ import BoardViewPage from "../page/BoardViewPage";
 const columns = ['제목', '카테고리', '태그', '작성자', '좋아요', '날짜'];
 const itemsPerPage = 10;
 
-function ListContainer(props) {
+function ListContainer(category, tag) {
 
     const [reviews, setReviews] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -16,9 +16,8 @@ function ListContainer(props) {
     const getList = async () => {
         const response = await axios.get("http://localhost:8080/board/list");
         setReviews(response.data);
-        console.log(response.data);
     };
-
+    console.log(category['category'])
     useEffect(() => {getList()},[]);
 
     const lastIndex = currentPage * itemsPerPage;
@@ -66,6 +65,17 @@ function ListContainer(props) {
         }
     `;
 
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // 0부터 시작하기 때문에 1을 더해야 함
+        const day = date.getDate();
+        const hour = date.getHours();
+        const minute = date.getMinutes();
+        return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
+    }
+
+
 
     return (
         <div>
@@ -80,14 +90,18 @@ function ListContainer(props) {
                     </thead>
                     <tbody>
                         {currentItems.map((board) => (
-                        <tr key = {board} onClick={() => handleCellClick(board.id)}>
-                                <td style={{ padding: '8px 70px'}}>{board.title}</td>
-                                <td style={{ padding: '8px 70px'}}>{board.category}</td>
-                                <td style={{ padding: '8px 70px' }}>{board.tag}</td>
-                                <td style={{ padding: '8px 70px' }}>{board.member.name}</td>
-                                <td style={{ padding: '8px 70px' }}>{board.bookmark_cnt}</td>
-                                <td style={{ padding: '8px 70px' }}>{board.write_date}</td>
-                        </tr>
+                            <tr key = {board} onClick={() => handleCellClick(board.id)}>
+                                { category['category'] === "전체" || (board.category === category['category']) ? (
+                                        <>
+                                            <td style={{padding: '8px 70px'}}>{board.title}</td>
+                                            <td style={{padding: '8px 70px'}}>{board.category}</td>
+                                            <td style={{padding: '8px 70px'}}>{board.tag}</td>
+                                            <td style={{padding: '8px 70px'}}>{board.member.name}</td>
+                                            <td style={{padding: '8px 70px'}}>{board.bookmark_cnt}</td>
+                                            <td style={{padding: '8px 70px'}}>{formatDate(board.write_date)}</td>
+                                        </>
+                                ) : null }
+                            </tr>
                         ))}
                     </tbody>
                 </StyledTable>

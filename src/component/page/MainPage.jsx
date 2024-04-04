@@ -26,7 +26,7 @@ const MainPage = () => {
 
 
     // 카테고리 상태 관리, 선택 핸들러
-    const [selectedCategory, setSelectedCategory] = useState('전체');
+    const [selectedCategory, setSelectedCategory] = useState("전체");
 
     // 카테고리 select section 부분
     const handleCategorySelect = (category) => {
@@ -38,7 +38,7 @@ const MainPage = () => {
             <Header />
             <TagList onTagSelect={handleTagSelect} />
             <CategoryList onSelect={handleCategorySelect} />
-            <ListContainer category={selectedCategory}/>
+            <ListContainer category={selectedCategory} tag={selectedTag}/>
             <FootButtonContainer>
                 <CreatePostButton />
             </FootButtonContainer>

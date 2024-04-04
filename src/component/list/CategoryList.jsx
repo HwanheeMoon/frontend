@@ -18,7 +18,7 @@ const CategoryList = ({onSelect}) => {
     const[selectedCategory, setSelectedCategory] = useState('전체');
 
     const handleCategoryClick = (category) => {
-        selectedCategory(category);
+        setSelectedCategory(category);
         onSelect(category);
     };
 
