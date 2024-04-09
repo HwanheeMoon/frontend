@@ -5,6 +5,7 @@ import LoginButton from '../button/LoginButton';
 import SignupButton from '../button/SignupButton';
 import {useEffect} from "react";
 import LogoutButton from "../button/LogoutButton";
+import MyPageButton from "../button/MyPageButton";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -37,7 +38,7 @@ const ButtonContainer = styled.div`
 const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     useEffect( () => {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         if(token) {
             setIsLoggedIn(true);
         }
@@ -51,7 +52,9 @@ const Header = () => {
           <ButtonContainer>
 
               {!isLoggedIn && <SignupButton/>}
+              {isLoggedIn && <MyPageButton/>}
               {isLoggedIn && <LogoutButton/>}
+
 
           </ButtonContainer>
       </HeaderContainer>

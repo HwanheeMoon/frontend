@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import CategorySelectButton from "../button/CategorySelectButton";
 
@@ -9,12 +9,6 @@ const Container = styled.div`
     margin-top: 10px;
 `;
 
-const Title = styled.div`
-    font-size: 18px;
-    color: black;
-    margin-bottom: 10px;
-    text-align: left;
-`;
 
 const ButtonContainer = styled.div`
     display: flex;
@@ -23,20 +17,23 @@ const ButtonContainer = styled.div`
 
 
 
-const CategoryContainer = () => {
-
+const CategoryContainer = ({ onSelect }) => {
+    const [select, setSelected] = useState();
     // 카테고리 버튼 목록
-    const categories = ['리뷰', '질문', '문의'];
+    const categories = ['리뷰', '질문', '공지'];
 
     // 카테고리 선택했을 때
     const handleCategorySelect = (category) => {
-        console.log('Selected category:', category);
+        onSelect(category);
     };
 
     return (
 
         <Container>
-            <Title>카테고리</Title>
+            <div>
+                <h2>카테고리</h2>
+            </div>
+            <div>
             <ButtonContainer>
                 {categories.map((category) => (
                     <CategorySelectButton
@@ -45,8 +42,9 @@ const CategoryContainer = () => {
                     onClick={handleCategorySelect} />
                 ))}
             </ButtonContainer>
+            </div>
         </Container>
-        
+
     );
 };
 

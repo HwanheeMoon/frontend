@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
@@ -15,6 +15,7 @@ const FootButtonContainer = styled.div`
 `;
 
 const MainPage = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
     // 태그 상태 관리, 태그 선택 핸들러
@@ -23,7 +24,12 @@ const MainPage = () => {
     const handleTagSelect = (tag) => {
         setSelectedTag(tag);
     };
-
+    useEffect(() => {
+        const accessToken = sessionStorage.getItem("token");
+        if(accessToken) {
+            setIsLoggedIn(true);
+        }
+    }, []);
 
     // 카테고리 상태 관리, 선택 핸들러
     const [selectedCategory, setSelectedCategory] = useState("전체");
@@ -34,13 +40,13 @@ const MainPage = () => {
     };
 
     return (
-        <div style = {{padding: '10px'}}>
+        <div style = {{padding: '5px'}}>
             <Header />
             <TagList onTagSelect={handleTagSelect} />
             <CategoryList onSelect={handleCategorySelect} />
             <ListContainer category={selectedCategory} tag={selectedTag}/>
             <FootButtonContainer>
-                <CreatePostButton />
+                {isLoggedIn && <CreatePostButton/>}
             </FootButtonContainer>
         </div>
     );

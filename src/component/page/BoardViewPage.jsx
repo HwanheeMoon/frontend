@@ -14,6 +14,7 @@ const BoardViewPage = () => { // Use props for board data
     const [newComment, setNewComment] = useState([]);
     const [writer, setWriter] = useState();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [username, setUsername] = useState("");
     const navigate = useNavigate();
 
     function formatDate(dateString) {
@@ -48,14 +49,19 @@ const BoardViewPage = () => { // Use props for board data
         }
     };
 
+
     useEffect(() => {
         getBoard();
         getComments();
-        const token = localStorage.getItem("token");
+
+        const token = sessionStorage.getItem("token");
         if(token) {
             setIsLoggedIn(true);
         }
+
+
     }, []); // Empty dependency array ensures fetching only once
+
 
     return (
         <div>
@@ -72,7 +78,14 @@ const BoardViewPage = () => { // Use props for board data
 
                         <h3 style={{ padding: '1px 30px'}}> 작성자 : {writer}</h3>
                         <h4 style={{ padding: '1px 30px'}}>작성 일시 :  {formatDate(board.write_date)}</h4>
-                        <ul style={{ padding: '8px 30px'}}>{board.content}</ul>
+                        <ul style={{ padding: '8px 30px'}}>{(board.content || "").split('\n').map(line => {
+                            return (
+                                <>
+                                    {line}
+                                    <br />
+                                </>
+                            );
+                        })}</ul>
 
                         <hr />
                         <h2 style={{padding : '1px 30px'}}>댓글</h2>
@@ -86,7 +99,8 @@ const BoardViewPage = () => { // Use props for board data
                         </ul>
 
                     <div style={{padding : '8px 30px'}}>
-                        {isLoggedIn && <AddCommentBtn>
+                        {isLoggedIn &&
+                            <AddCommentBtn>
                         </AddCommentBtn>}
                     </div>
                 </div>

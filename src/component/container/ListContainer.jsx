@@ -17,6 +17,19 @@ function ListContainer(category, tag) {
         const response = await axios.get("http://localhost:8080/board/list");
         setReviews(response.data);
     };
+    const [posts, setPosts] = useState([]);
+
+    const sortPostsByDate = (reviews) => {
+        return reviews.sort((a, b) => {
+            return new Date(b.write_date) - new Date(a.write_date);
+        });
+    };
+
+    useEffect(() => {
+        // 게시물 목록을 최신순으로 정렬하여 setPosts에 저장
+        setPosts(sortPostsByDate(reviews));
+    }, [reviews]);
+
     console.log(category['category'])
     useEffect(() => {getList()},[]);
 
@@ -76,7 +89,6 @@ function ListContainer(category, tag) {
     }
 
 
-
     return (
         <div>
             <StyledContainer>
@@ -84,7 +96,7 @@ function ListContainer(category, tag) {
                     <thead>
                         <tr>
                             {columns.map((column, index) => (
-                                <th key={index} style={{ padding: '10px', textAlign: 'center', backgroundColor: 'rgba(181, 200, 255, 0.3)' }}>{column}</th>
+                                <th key={index} style={{ padding: '10px 0px', textAlign: 'center', backgroundColor: 'rgba(181, 200, 255, 0.3)' }}>{column}</th>
                             ))}
                         </tr>
                     </thead>
@@ -93,12 +105,12 @@ function ListContainer(category, tag) {
                             <tr key = {board} onClick={() => handleCellClick(board.id)}>
                                 { category['category'] === "전체" || (board.category === category['category']) ? (
                                         <>
-                                            <td style={{padding: '8px 70px'}}>{board.title}</td>
-                                            <td style={{padding: '8px 70px'}}>{board.category}</td>
-                                            <td style={{padding: '8px 70px'}}>{board.tag}</td>
-                                            <td style={{padding: '8px 70px'}}>{board.member.name}</td>
-                                            <td style={{padding: '8px 70px'}}>{board.bookmark_cnt}</td>
-                                            <td style={{padding: '8px 70px'}}>{formatDate(board.write_date)}</td>
+                                            <td style={{padding: '8px 40px'}}>{board.title}</td>
+                                            <td style={{padding: '8px 40px'}}>{board.category}</td>
+                                            <td style={{padding: '8px 40px'}}>{board.tag}</td>
+                                            <td style={{padding: '8px 40px'}}>{board.member.name}</td>
+                                            <td style={{padding: '8px 40px'}}>{board.bookmark_cnt}</td>
+                                            <td style={{padding: '8px 40px'}}>{formatDate(board.write_date)}</td>
                                         </>
                                 ) : null }
                             </tr>
