@@ -31,13 +31,7 @@ const JoinPage = () => {
                 <h1 style={{color: 'gray', fontWeight: 'normal', marginBottom: '50px'}}>간편 로그인</h1>
 
                 <div style={{ display: 'flex', justifyContent: 'center', width: '280px', alignItems: 'center'}}>
-                    <KakaoButton
-                            imageSrc={require("../../images/kakao_signup.png")}
-                            alt="카카오버튼 이미지"
-                            width="280px"
-                            height= "62px"
-                            onClick={handleKakao}// 버튼이 클릭될 때 실행될 함수를 지정
-                    />
+
 
 
                     <div style={{ marginRight: '30px' }}></div>

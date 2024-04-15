@@ -8,6 +8,13 @@ import PostCreatePage from './component/page/PostCreatePage';
 import BoardViewPage from './component/page/BoardViewPage';
 import RedirectPage from "./component/page/RedirectPage";
 
+function checkReIssuedToken(response) {
+    const accessToken = response.data.headers['Authorization'];
+    if(accessToken) {
+        sessionStorage.setItem("token", accessToken);
+    }
+
+}
 
 const App = () => {
 
